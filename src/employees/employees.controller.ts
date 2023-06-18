@@ -12,19 +12,19 @@ import { UpdateEmployeeDTO } from './dtos/update-employee.dto';
 export class EmployeesController {
   constructor(private employeesService: EmployeesService) { }
 
-  @Post()
+  @Post('create')
   @ApiOperation({ summary: 'Creating a new employess' })
   async createEmployee(@Body() body: CreateEmployeeDTO) {
     return this.employeesService.create(body)
   }
 
-  @Patch(':id')
+  @Patch('delete/:id')
   @ApiOperation({ summary: 'Soft deleting of employees' })
   async deleteEmployee(@Param('id') id: string) {
     return this.employeesService.delete(id);
   }
 
-  @Patch(':id/update')
+  @Patch('update/:id')
   @ApiOperation({ summary: 'Editing of existing employees' })
   async updateEmployee(@Param('id') id: string, @Body() body: UpdateEmployeeDTO) {
     return this.employeesService.update(
@@ -33,7 +33,7 @@ export class EmployeesController {
     );
   }
 
-  @Get('paginatedEmployees')
+  @Get('paginated')
   @ApiOperation({ summary: 'Paginated list of employees' })
   async findEmployees(
     @Query('page', ParseIntPipe) page: number = 1,
@@ -45,7 +45,7 @@ export class EmployeesController {
     );
   }
 
-  @Get('/deletedEmployees')
+  @Get('deleted')
   @ApiOperation({ summary: 'List of deleted employess' })
   async findDeletedEmployees() {
     return this.employeesService.findDeletedEmployees();

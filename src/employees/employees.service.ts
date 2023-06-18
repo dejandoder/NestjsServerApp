@@ -6,7 +6,6 @@ import { Employee } from "./schemas/employee.shema";
 import { CreateEmployeeDTO } from "./dtos/create-employee.dto";
 import { UpdateEmployeeDTO } from "./dtos/update-employee.dto";
 
-
 @Injectable()
 export class EmployeesService {
     constructor(private employeesRepository: EmployeesRepository) { }
