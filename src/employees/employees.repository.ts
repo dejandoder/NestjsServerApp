@@ -15,11 +15,11 @@ export class EmployeesRepository {
         const newUser = new this.employeeModel(
             employee
         );
-        return newUser.save();
+        return await newUser.save();
     }
 
     async delete(id: string): Promise<Employee> {
-        return this.employeeModel.findOneAndUpdate(
+        return await this.employeeModel.findOneAndUpdate(
             { _id: id },
             { deleted: true },
             { new: true }
@@ -27,7 +27,7 @@ export class EmployeesRepository {
     }
 
     async update(id: string, employee: UpdateEmployeeDTO): Promise<Employee> {
-        return this.employeeModel.findOneAndUpdate(
+        return await this.employeeModel.findOneAndUpdate(
             { _id: id },
             {
                 $set: {
@@ -45,10 +45,10 @@ export class EmployeesRepository {
 
     async findEmployees(page: number, limit: number): Promise<Employee[]> {
         const skip = (page - 1) * limit;
-        return this.employeeModel.find({ deleted: false }).skip(skip).limit(limit).exec();
+        return await this.employeeModel.find({ deleted: false }).skip(skip).limit(limit).exec();
     }
 
     async findDeletedEmployees(): Promise<Employee[]> {
-        return this.employeeModel.find({ deleted: true }).exec();
+        return await this.employeeModel.find({ deleted: true }).exec();
     }
 }
